@@ -8,7 +8,7 @@ from rest_framework import status
 from .models import Candidate, InterviewSession, QuestionAttempt
 from .serializers import CandidateSerializer, InterviewSessionSerializer, QuestionAttemptSerializer
 from .serivices.ai_service import extract_resume_fields, generate_all_questions, evaluate_answer, generate_summary
-from .utils.parser import extract_text_from_pdf, extract_text_from_docx
+from .utils.parser import text_from_pdf, text_from_docx
 import requests
 TIME_LIMITS = {
     "easy": 20,
@@ -27,10 +27,10 @@ class UploadResumeView(APIView):
         file_path = os.path.join(settings.MEDIA_ROOT, tmp_path)
 
         if ext == '.pdf':
-            raw_text = extract_text_from_pdf(file_path)
+            raw_text = text_from_pdf(file_path)
 
         elif ext in ['.docx', '.doc']:
-            raw_text = extract_text_from_docx(file_path)
+            raw_text = text_from_docx(file_path)
         else:
             default_storage.delete(tmp_path)
             return Response({"error": "Unsupported file type."}, status=status.HTTP_400_BAD_REQUEST)

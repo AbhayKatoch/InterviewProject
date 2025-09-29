@@ -24,6 +24,9 @@ class Question(BaseModel):
     difficulty: Annotated[str, Field(pattern="^(easy|medium|hard)$", description="Difficulty level")]
     question: Annotated[str, Field(description="Question text")]
 
+class QuestionsList(BaseModel):
+    questions: list[Question]
+
 class AnswerEvaluation(BaseModel):
     score: Annotated[int, Field(ge=0, le=10, description="Score 0–10")]
     reason: Annotated[str, Field(description="Reason for score")]
@@ -50,7 +53,7 @@ def extract_resume_fields(resume_text:str)-> ResumeFields:
     result = chain.invoke({"resume_text": resume_text}) 
     return result
 
-question_parser = PydanticOutputParser(pydantic_object=List[Question])
+question_parser = PydanticOutputParser(pydantic_object=QuestionsList)
 QUESTION_PROMPT= PromptTemplate(
     input_variables=["role"],
     template=(
