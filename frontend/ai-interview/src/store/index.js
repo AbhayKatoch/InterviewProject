@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import uiReducer from "./uiSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import candidateReducer from './candidateSlice';
+import dashboardReducer from './dashboardSlice';
+import sessionReducer from './sessionSlice';
 
 export const store = configureStore({
   reducer: {
     candidate: candidateReducer,
-    session: persistedSession,
+    session: sessionReducer,
     dashboard: dashboardReducer,
     ui: uiReducer,
   },

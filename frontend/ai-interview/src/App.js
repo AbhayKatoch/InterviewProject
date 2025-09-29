@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Tabs, Modal } from "antd";
 import { setShowWelcomeBack } from "./store/uiSlice";
 import IntervieweeChat from "./components/IntervieweeChat";
-import InterviewerDashboard from "./components/InterviewerDashboard";
+import InterviewerDashboard from "./components/InterviewDashboard";
 import { persistStore } from "redux-persist";
 import { store } from "./store";
 
